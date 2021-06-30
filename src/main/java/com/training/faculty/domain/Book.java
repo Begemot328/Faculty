@@ -8,6 +8,8 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
@@ -17,6 +19,7 @@ import javax.persistence.OneToOne;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Book extends CustomEntity {
 
     @OneToOne

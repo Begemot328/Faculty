@@ -1,8 +1,12 @@
 package com.training.faculty.persistence;
 
 import com.training.faculty.domain.Book;
-import com.training.faculty.domain.Team;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.training.faculty.domain.Student;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
+@Repository
+@Qualifier
 public interface BookRepository extends EntityRepository<Book> {
 }

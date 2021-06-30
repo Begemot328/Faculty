@@ -1,16 +1,11 @@
 package com.training.faculty.web.dto;
 
-import com.training.faculty.domain.Subject;
+import com.training.faculty.web.dto.simple.SimpleSubjectDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Getter
 @Setter
@@ -21,7 +16,7 @@ public class BookDTO {
 
     private long id;
 
-    private SubjectDTO subject;
+    private SimpleSubjectDTO subject;
 
     private String title;
 

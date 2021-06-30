@@ -1,8 +1,8 @@
 package com.training.faculty.web.controller;
 
-import com.training.faculty.domain.Student;
-import com.training.faculty.service.StudentService;
-import com.training.faculty.web.dto.StudentDTO;
+import com.training.faculty.domain.Book;
+import com.training.faculty.service.BookService;
+import com.training.faculty.web.dto.BookDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,47 +19,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/students")
-public class StudentController {
+@RequestMapping(value = "/books")
+public class BookController {
 
     private final ModelMapper mapper;
-    private StudentService service;
+    private BookService service;
 
     @Autowired
-    public StudentController(StudentService service, ModelMapper mapper) {
+    public BookController(BookService service, ModelMapper mapper) {
         this.service = service;
         this.mapper = mapper;
     }
 
     @PostMapping
-    public ResponseEntity<StudentDTO> create(@RequestBody StudentDTO studentDTO) {
-        studentDTO = mapper.map(service.create(mapper.map(studentDTO, Student.class)),
-                StudentDTO.class);
-        return new ResponseEntity<>(studentDTO, HttpStatus.ACCEPTED);
+    public ResponseEntity<BookDTO> create(@RequestBody BookDTO bookDTO) {
+        bookDTO = mapper.map(service.create(mapper.map(bookDTO, Book.class)),
+                BookDTO.class);
+        return new ResponseEntity<>(bookDTO, HttpStatus.ACCEPTED);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<StudentDTO> find(@PathVariable(value = "id") int id) {
-        return new ResponseEntity<>(mapper.map(service.getById(id), StudentDTO.class),
+    public ResponseEntity<BookDTO> find(@PathVariable(value = "id") int id) {
+        return new ResponseEntity<>(mapper.map(service.getById(id), BookDTO.class),
                 HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<StudentDTO> update(@RequestBody StudentDTO studentDTO) {
-        service.update(mapper.map(studentDTO, Student.class));
-        return new ResponseEntity<>(studentDTO, HttpStatus.ACCEPTED);
+    public ResponseEntity<BookDTO> update(@RequestBody BookDTO bookDTO) {
+        service.update(mapper.map(bookDTO, Book.class));
+        return new ResponseEntity<>(bookDTO, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<StudentDTO> delete(@PathVariable(value = "id") int id) {
+    public ResponseEntity<BookDTO> delete(@PathVariable(value = "id") int id) {
         service.delete(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @GetMapping
-    public ResponseEntity<Page<StudentDTO>> find(Pageable pageable) {
-        Page<StudentDTO> result = service.getAll(pageable)
-                .map(student -> mapper.map(student, StudentDTO.class));
+    public ResponseEntity<Page<BookDTO>> find(Pageable pageable) {
+        Page<BookDTO> result = service.getAll(pageable)
+                .map(book -> mapper.map(book, BookDTO.class));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

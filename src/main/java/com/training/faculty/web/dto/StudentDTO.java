@@ -1,5 +1,6 @@
 package com.training.faculty.web.dto;
 
+import com.training.faculty.web.dto.simple.SimpleTeamDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,5 @@ public class StudentDTO {
 
     private String lastName;
 
-    private List<TeamDTO> teams;
+    private List<SimpleTeamDTO> teams;
 }

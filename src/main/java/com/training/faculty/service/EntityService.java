@@ -1,18 +1,15 @@
 package com.training.faculty.service;
 
 import com.training.faculty.domain.CustomEntity;
-import com.training.faculty.domain.Student;
 import com.training.faculty.persistence.EntityRepository;
-import com.training.faculty.persistence.StudentRepository;
 import com.training.faculty.service.exception.BadRequestException;
 import com.training.faculty.service.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Service
 public class EntityService<T extends CustomEntity> {
     private static final String NOT_FOUND = "Requested resource not found(%s = %s)!";
 
@@ -23,30 +20,31 @@ public class EntityService<T extends CustomEntity> {
         this.repository = repository;
     }
 
-    public T getStudent(long id) {
+    public T getById(long id) {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(String.format(NOT_FOUND, "id", id)));
     }
 
-    public Page<T> getAllStudents(Pageable pageable) {
+    public Page<T> getAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
     public void delete(long id) {
-        repository.delete(getStudent(id));
+        repository.delete(getById(id));
     }
 
-    public T create(T student) {
+    @Transactional
+    public T create(T entity) {
         try {
-            return repository.save(student);
+            return repository.save(entity);
         } catch (DataIntegrityViolationException e) {
             throw new BadRequestException(e);
         }
     }
 
-    public void update(T student) {
-        getStudent(student.getId());
+    public void update(T entity) {
+        getById(entity.getId());
         try {
-            repository.save(student);
+            repository.save(entity);
         } catch (DataIntegrityViolationException e) {
             throw new BadRequestException(e);
         }

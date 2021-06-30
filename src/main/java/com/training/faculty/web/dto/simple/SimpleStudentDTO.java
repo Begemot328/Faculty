@@ -1,22 +1,25 @@
-package com.training.faculty.web.dto;
+package com.training.faculty.web.dto.simple;
 
-import com.training.faculty.web.dto.simple.SimpleTeamDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 import java.util.List;
+
 
 @Getter
 @Setter
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class SubjectDTO {
+public class SimpleStudentDTO {
     private long id;
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
 
     private List<SimpleTeamDTO> teams;
 }

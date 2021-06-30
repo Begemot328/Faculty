@@ -6,13 +6,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.UniqueConstraint;
 import java.util.List;
 
 @Entity
@@ -21,8 +25,10 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Team  extends CustomEntity {
 
+    @Column(unique = true)
     private String name;
 
     @ManyToOne
@@ -31,7 +37,7 @@ public class Team  extends CustomEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "student_team",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "team_id"))
+            joinColumns = @JoinColumn(name = "team_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> students;
 }

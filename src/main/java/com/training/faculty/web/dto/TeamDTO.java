@@ -1,5 +1,7 @@
 package com.training.faculty.web.dto;
 
+import com.training.faculty.web.dto.simple.SimpleStudentDTO;
+import com.training.faculty.web.dto.simple.SimpleSubjectDTO;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ public class TeamDTO {
 
     private String name;
 
-    private SubjectDTO subject;
+    private SimpleSubjectDTO subject;
 
-    private List<StudentDTO> students;
+    private List<SimpleStudentDTO> students;
 }
